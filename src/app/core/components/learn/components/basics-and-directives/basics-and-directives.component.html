@@ -1,0 +1,114 @@
+<p>Este es el proyecto de platzi-square</p>
+
+<!-- String interpolation  -->
+<p>string interpolation = {{title}}</p>
+
+<!-- Property biding -->
+<button [disabled]="!habilitar">click me!!</button>
+
+<!-- Event binding -->
+<button (click)="hacerAlgo()">click me!!</button>
+
+<!-- two way data biding -->
+<!-- 1. se declara una variable en TypeScript -->
+<!-- 2. se debe importar en x.module.ts el FormsModule  -->
+<!-- recordar que este binding almacena inf.. en una variable previamente establecida en TypeScript y la envia a TypeScript y tambien se puede traer al templete con string interpolation  -->
+
+<input type="text" placeholder="Ingrese inf" [(ngModel)]="twoWayDataBinding">
+<p>la inf ingresada es {{twoWayDataBinding}}</p>
+
+
+<ul>
+  <ng-container *ngFor="let lugar of lugares">
+    <li *ngIf="lugar.active">{{lugar.nombre}}</li>
+  </ng-container>
+</ul>
+
+<!-- directiva de componente  -->
+<p>Directiva de Componente ngStyle normal</p>
+<ul>
+  <ng-container *ngFor="let lugar of lugares">
+    <li [ngStyle]="{'color': 'purple' }">{{lugar.nombre}}</li>
+  </ng-container>
+</ul>
+
+<!-- la directiva de componente puede tener una condicion  -->
+<!-- si active = true yellow sino gray -->
+<ul>
+  <p>Directiva de Componente ngStyle con condicion</p>
+  <ng-container *ngFor="let lugar of lugares">
+    <li [ngStyle]="{ color: (lugar.active) ? 'blue' : 'orange' }">{{lugar.nombre}}</li>
+  </ng-container>
+</ul>
+
+<ul>
+  <p>Directiva de Componente ngStyle modificando varios atributos del componente</p>
+  <ng-container *ngFor="let lugar of lugares">
+    <li [ngStyle]="{ color: (lugar.active) ? 'blue' : 'orange', 'background-color': (lugar.active) ? 'transparent' : 'black' }">{{lugar.nombre}}</li>
+  </ng-container>
+</ul>
+
+<!-- directiva de componente ngClas  -->
+<ul>
+  <p>Directiva de componente ngClass normalita</p>
+  <ng-container *ngFor="let lugar of lugares">
+    <li [ngClass]="'numero_par'">{{lugar.nombre}}</li>
+  </ng-container>
+</ul>
+
+<!-- ngClass puede evaluar una condicion  -->
+
+<ul>
+  <p>Directiva de componente ngClass evaluando una condicion (impar)</p>
+  <ng-container *ngFor="let lugar of lugares; let i = index ">
+    <li [ngClass]="{numero_par: (i+1) % 2 !== 0}">{{lugar.nombre}}</li>
+  </ng-container>
+</ul>
+
+
+<ul>
+  <p>Directiva de Componente impar</p>
+  <ng-container *ngFor="let lugar of lugares; even as esPar">
+    <li [ngStyle]="{ color: (lugar.active) ? 'blue' : 'orange' }"
+    [ngClass]="{numero_par: esPar}">{{lugar.nombre}}</li>
+  </ng-container>
+</ul>
+
+<!-- las siguientes directivas primero modifica el color y luego aplica la clase a las lineas Impares aplica el backgrounfd pero el color el dominante es la de la directiva ngstyle -->
+<ul>
+  <p>Directiva de Componente impar</p>
+  <ng-container *ngFor="let lugar of lugares; odd as esImpar">
+    <li [ngStyle]="{ color: (lugar.active) ? 'blue' : 'orange' }"
+    [ngClass]="{numero_par: esImpar}">{{lugar.nombre}}</li>
+  </ng-container>
+</ul>
+
+<ul>
+  <p>Directiva de Componente impar</p>
+  <ng-container *ngFor="let lugar of lugares; even as esPar">
+    <li [ngStyle]="{ color: (lugar.active) ? 'blue' : 'orange' }"
+    [ngClass]="{numero_par: esPar}">{{lugar.nombre}}</li>
+  </ng-container>
+</ul>
+
+<ul>
+  <p>Directiva de Estructura ngSwith (Esta directiva Estructural no evalua Expresiones sino compara match)</p>
+  <ng-container *ngFor="let lugar of lugares;" [ngSwitch]= "lugar.cercania" >
+    <li [ngStyle]="{ color: (lugar.active) ? 'blue' : 'orange' }"
+    [ngClass]="'numero_par'">{{lugar.nombre}} --
+    <span *ngSwitchCase="1" [ngStyle]="{color: 'green'}" >Muy cercano</span>
+    <span *ngSwitchCase="2" [ngStyle]="{color: 'black'}" >Cercano</span>
+    <span *ngSwitchCase="3" [ngStyle]="{color: 'yellow'}" >lejos</span>
+    </li>
+  </ng-container>
+</ul>
+<!-- 
+
+<ul>
+  <p>Modificando los componentes con una directiva </p>
+  <ng-container *ngFor="let lugar of lugares">
+    <li [resaltar]="lugar.plan" >{{lugar.nombre}}</li>
+  </ng-container>
+</ul> -->
+
+
